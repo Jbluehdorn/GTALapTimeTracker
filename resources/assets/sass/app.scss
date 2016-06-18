@@ -1,0 +1,13 @@
+
+@import './components/sidebar.scss';
+@import './components/errors.scss';
+
+#main-content-wrapper {
+  margin-top: 50px;
+  transition: all .5s ease;
+}
+
+.loading {
+    font-size: 5em;
+    text-align: center;
+}

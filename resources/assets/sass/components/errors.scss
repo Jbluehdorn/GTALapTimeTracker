@@ -1,0 +1,16 @@
+@import './transitions.scss';
+
+.alert {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  list-style-type: none;
+  position: relative;
+}
+
+.dismiss-alert {
+  position: absolute;
+  right: 10px;
+  top: 15px;
+  cursor: pointer;
+  font-size: 1.2em;
+}

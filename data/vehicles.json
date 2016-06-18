@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "make": "Grotti",
+    "model": "Cheetah",
+    "class": "Super",
+    "type": "car",
+    "laps": [30.17, 30.09, 31.30, 31.90, 30.84]
+  },
+  {
+    "id": 2,
+    "make": "Pegassi",
+    "model": "Bati 801",
+    "class": "Motorcycles",
+    "type": "bike",
+    "laps": [30.50, 30.41, 30.32, 30.69, 30.19]
+  },
+  {
+    "id": 3,
+    "make": "Overflod",
+    "model": "Entity XF",
+    "class": "Super",
+    "type": "car",
+    "laps": [30.59, 30.65, 30.51, 30.58, 30.46]
+  }
+]														

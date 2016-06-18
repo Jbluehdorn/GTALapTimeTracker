@@ -1,0 +1,75 @@
+/*============
+    BOUNCE
+  ============*/
+.bounce-transition {
+  display: block; /* otherwise scale animation won't work */
+}
+.bounce-enter {
+  animation: bounce-in .5s;
+}
+
+.bounce-leave {
+  animation: bounce-out .5s;
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0) rotateX(120deg);
+  }
+  50% {
+    transform: scale(1.05) rotateX(60deg);
+  }
+  100% {
+    transform: scale(1) rotateX(none);
+  }
+}
+@keyframes bounce-out {
+  0% {
+    transform: scale(1) rotateX(none);
+  }
+  50% {
+    transform: scale(1.05) rotateX(60deg);
+  }
+  100% {
+    transform: scale(0) rotateX(120deg);
+  }
+}
+
+/*==============
+   SLIDE
+  ==============*/
+.slide-transition {
+  display: block;
+}
+
+.slide-enter {
+  animation: slide-in .5s;
+}
+
+.slide-end {
+  animation: slide-out .5s;
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(-1000px);
+  }
+  50% {
+    transform: translateX(25px);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes slide-out {
+  0% {
+    transform: none;
+  }
+  50% {
+    transform: translateX(-25px);
+  }
+  100% {
+    transform: translateX(1000px);
+  }
+}
