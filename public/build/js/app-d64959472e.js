@@ -16032,25 +16032,21 @@ exports.default = {
         _store2.default.errors.push('Vehicle not found!');
         this.loading = false;
       } else {
-        this.search(this.vehicle.make + ' ' + this.vehicle.model);
+        this.search(this.vehicle.model);
       }
     },
-    search: function search(term) {
+    search: function search(model) {
+      this.loading = true;
       this.$http({
-        url: 'https://www.googleapis.com/customsearch/v1',
-        method: 'GET',
-        data: {
-          q: term,
-          cx: _store2.default.googleSearch.cx,
-          key: _store2.default.googleSearch.key,
-          searchType: 'image'
-        }
+        url: 'http://gta.wikia.com/wiki/' + model,
+        method: 'GET'
       }).then(function (response) {
-        console.log(response.data.items);
-        this.image = response.data.items[0].link;
+        var rawHtml = document.createElement('html');
+        rawHtml.innerHTML = response.data;
+        var image = rawHtml.getElementsByClassName('pi-image-thumbnail');
+        this.image = image[0].src;
       }, function (err) {
-        console.log(err);
-        _store2.default.errors.push('It failed!');
+        _store2.default.errors.push("We couldn't find a photo of that vehicle!");
       }).finally(function () {
         this.loading = false;
       });
@@ -16058,7 +16054,7 @@ exports.default = {
   }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div id=\"searchResult\">\n  <div v-if=\"error\">\n    <h1>Error</h1>\n    <h3>Vehicle not found</h3>\n  </div>\n  <div class=\"loading\" v-if=\"loading\"><i class=\"fa fa-spin fa-spinner\"></i></div>\n  <div v-else=\"\" transition=\"slide\">\n    <h1>{{vehicle.make}} {{vehicle.model}}</h1>\n    <img v-bind:src=\"image\">\n    {{vehicle | json}}\n  </div>\n  {{loading}}\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div id=\"searchResult\">\n  <div v-if=\"error\">\n    <h1>Error</h1>\n    <h3>Vehicle not found</h3>\n  </div>\n  <div class=\"loading\" v-if=\"loading\"><i class=\"fa fa-spin fa-spinner\"></i></div>\n  <div v-else=\"\" transition=\"slide\">\n    <h1>{{vehicle.make}} {{vehicle.model}}</h1>\n    <img v-bind:src=\"image\" class=\"img-thumbnail img-responsive\">\n\n    <hr>\n    {{vehicle | json}}\n  </div>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)

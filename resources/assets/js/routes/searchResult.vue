@@ -7,10 +7,11 @@
     <div class="loading" v-if="loading"><i class="fa fa-spin fa-spinner"></i></div>
     <div v-else transition="slide">
       <h1>{{vehicle.make}} {{vehicle.model}}</h1>
-      <img v-bind:src="image" />
+      <img v-bind:src="image" class="img-thumbnail img-responsive">
+
+      <hr>
       {{vehicle | json}}
     </div>
-    {{loading}}
   </div>
 </template>
 
@@ -49,25 +50,21 @@
           store.errors.push('Vehicle not found!');
           this.loading = false;
         } else {
-          this.search(this.vehicle.make + ' ' + this.vehicle.model)
+          this.search(this.vehicle.model)
         }
       },
-      search(term) {
+      search(model) {
+        this.loading = true;
         this.$http({
-          url: 'https://www.googleapis.com/customsearch/v1',
-          method: 'GET',
-          data: {
-            q: term,
-            cx: store.googleSearch.cx,
-            key: store.googleSearch.key,
-            searchType: 'image'
-          }
+          url: 'http://gta.wikia.com/wiki/' + model,
+          method: 'GET'
         }).then(function(response) {
-          console.log(response.data.items);
-          this.image = response.data.items[0].link;
+          let rawHtml = document.createElement('html');
+          rawHtml.innerHTML = response.data;
+          let image = rawHtml.getElementsByClassName('pi-image-thumbnail');
+          this.image = image[0].src;
         }, function(err) {
-          console.log(err);
-          store.errors.push('It failed!');
+          store.errors.push("We couldn't find a photo of that vehicle!");
         }).finally(function() {
           this.loading = false;
         });
