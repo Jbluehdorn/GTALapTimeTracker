@@ -6,11 +6,37 @@
     </div>
     <div class="loading" v-if="loading"><i class="fa fa-spin fa-spinner"></i></div>
     <div v-else transition="slide">
-      <h1>{{vehicle.make}} {{vehicle.model}}</h1>
-      <img v-bind:src="image" class="img-thumbnail img-responsive">
+      <h1>{{vehicle.model}}</h1>
+      <div class="col-xs-8">
+        <blockquote>
+          <p>{{vehicle.quoteBody}}</p>
+          <footer>{{vehicle.quoteSource}}</footer>
+        </blockquote>
+      </div>
+      <div class="col-xs-4" id="car-info">
+        <img v-bind:src="image" class="img-thumbnail">
+        <div class="table-responsive">
+          <table class="table">
+            <tr>
+              <th>Make:</th>
+              <td>{{vehicle.make}}</td>
+            </tr>
+            <tr>
+              <th>Model:</th>
+              <td>{{vehicle.model}}</td>
+            </tr>
+            <tr>
+              <th>Class:</th>
+              <td>{{vehicle.class}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
 
-      <hr>
-      {{vehicle | json}}
+      <div class="col-xs-12">
+        <hr>
+        {{vehicle | json}}
+      </div>
     </div>
   </div>
 </template>
@@ -28,6 +54,7 @@
       }
     },
     ready() {
+      console.log(this.$route.params);
       this.getVehicle(parseInt(this.$route.params.id));
     },
     computed: {
@@ -61,8 +88,14 @@
         }).then(function(response) {
           let rawHtml = document.createElement('html');
           rawHtml.innerHTML = response.data;
-          let image = rawHtml.getElementsByClassName('pi-image-thumbnail');
-          this.image = image[0].src;
+
+          let image = rawHtml.getElementsByClassName('pi-image-thumbnail')[0];
+          this.image = image.src;
+
+          let quote = rawHtml.getElementsByClassName('quote')[0].innerText;
+
+          this.vehicle.quoteBody = quote.slice(0, quote.indexOf('―'));
+          this.vehicle.quoteSource = quote.slice(quote.indexOf('―') + 1, quote.indexOf('description.') > -1 ? quote.indexOf('description.') : quote.length);
         }, function(err) {
           store.errors.push("We couldn't find a photo of that vehicle!");
         }).finally(function() {

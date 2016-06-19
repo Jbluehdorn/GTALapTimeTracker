@@ -11,8 +11,8 @@
       </a>
     </li>
     <li>
-      <a v-link="{path: '/search', activeClass: 'active', exact: true}">
-        <i class="fa fa-car"></i> Test
+      <a v-link="{path: '/search', activeClass: 'active', exact: false}">
+        <i class="fa fa-search"></i> Search
       </a>
     </li>
   </ul>

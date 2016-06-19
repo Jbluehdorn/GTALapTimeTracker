@@ -1,6 +1,7 @@
 
 @import './components/sidebar.scss';
 @import './components/errors.scss';
+@import './components/search.scss';
 
 #main-content-wrapper {
   margin-top: 50px;
@@ -10,4 +11,25 @@
 .loading {
     font-size: 5em;
     text-align: center;
+}
+
+.inner-addon {
+  color: #888;
+  position: relative;
+  .fa {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    pointer-events: none;
+  }
+  input {
+    margin-top: 10px;
+    padding-left: 25px;
+  }
+}
+
+.inner-addon.large {
+  .fa {
+    top: 15px;
+  }
 }
